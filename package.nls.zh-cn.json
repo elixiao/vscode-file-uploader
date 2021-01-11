@@ -1,0 +1,10 @@
+{
+    "commands.file-uploader.upload": "上传文件",
+    "configuration.title": "上传文件",
+    "configuration.properties.apiEndpoint": "文件上传地址",
+    "configuration.properties.httpHeaders": "上传时可自定义 http 头部字段（例如鉴权密钥）",
+    "configuration.properties.fileField": "multipart/form-data 存放文件的字段名（默认是 `file`）",
+    "configuration.properties.options.shouldCompressSingleFile": "上传单个文件时，是否先压缩（默认是 `false`)",
+    "configuration.properties.options.compressMode": "上传多文件时采用的压缩方式（zip/tar）",
+    "configuration.properties.userDefinedData": "用户自定义的数据，会被序列化后放入表单的 data 字段（文件是 file 字段）"
+}

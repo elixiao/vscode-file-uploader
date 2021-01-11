@@ -1,0 +1,126 @@
+{
+	"name": "file-uploader",
+	"displayName": "File Uploader",
+	"description": "upload files to remote http endpoint",
+	"version": "0.0.1",
+	"publisher": "keliq",
+	"engines": {
+		"vscode": "^1.52.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"icon": "images/icon.png",
+	"keywords": [
+		"upload",
+		"file"
+	],
+	"bugs": {
+		"url": "https://github.com/keliq/vscode-file-uploader/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/keliq/vscode-file-uploader.git"
+	},
+	"activationEvents": [
+		"onCommand:file-uploader.upload"
+	],
+	"main": "./out/extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "file-uploader.upload",
+				"title": "%commands.file-uploader.upload%"
+			}
+		],
+		"menus": {
+			"editor/context": [
+				{
+					"command": "file-uploader.upload",
+					"group": "navigation"
+				}
+			],
+			"explorer/context": [
+				{
+					"command": "file-uploader.upload",
+					"group": "navigation"
+				}
+			]
+		},
+		"configuration": {
+			"title": "%configuration.title%",
+			"properties": {
+				"file-uploader.apiEndpoint": {
+					"type": "string",
+					"description": "%configuration.properties.apiEndpoint%"
+				},
+				"file-uploader.httpHeaders": {
+					"type": "object",
+					"default": {
+						"X-Upload-Agent": "vscode-file-uploader"
+					},
+					"properties": {
+						"X-Upload-Agent": {
+							"type": "string",
+							"description": "User Agent for sending http request"
+						}
+					},
+					"description": "%configuration.properties.httpHeaders%"
+				},
+				"file-uploader.fileField": {
+					"type": "string",
+					"default": "file",
+					"description": "%configuration.properties.fileField%"
+				},
+				"file-uploader.options.shouldCompressSingleFile": {
+					"type": "boolean",
+					"default": false,
+					"description": "%configuration.properties.options.shouldCompressSingleFile%"
+				},
+				"file-uploader.options.compressMode": {
+					"type": "string",
+					"enum": [
+						"zip",
+						"tar"
+					],
+					"default": "zip",
+					"description": "%configuration.properties.options.compressMode%"
+				},
+				"file-uploader.userDefinedData": {
+					"type": "object",
+					"description": "%configuration.properties.userDefinedData%"
+				}
+			}
+		}
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"pretest": "npm run compile && npm run lint",
+		"lint": "eslint src --ext ts",
+		"test": "node ./out/test/runTest.js"
+	},
+	"devDependencies": {
+		"@types/archiver": "^5.1.0",
+		"@types/fs-extra": "^9.0.6",
+		"@types/glob": "^7.1.3",
+		"@types/mocha": "^8.0.0",
+		"@types/node": "^12.11.7",
+		"@types/vscode": "^1.52.0",
+		"@typescript-eslint/eslint-plugin": "^4.1.1",
+		"@typescript-eslint/parser": "^4.1.1",
+		"eslint": "^7.9.0",
+		"glob": "^7.1.6",
+		"mocha": "^8.1.3",
+		"typescript": "^4.0.2",
+		"vscode-test": "^1.4.0"
+	},
+	"dependencies": {
+		"archiver": "^5.2.0",
+		"axios": "^0.21.1",
+		"form-data": "^3.0.0",
+		"fs-extra": "^9.0.1",
+		"vscode-nls": "^5.0.0"
+	}
+}

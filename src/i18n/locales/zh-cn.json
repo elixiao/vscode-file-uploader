@@ -1,0 +1,7 @@
+{
+    "message.warning.openProject": "请先打开项目",
+    "message.warning.setApiEndpoint": "请先配置接口地址",
+    "message.warning.selectFiles": "请先选择文件",
+    "message.info.uploadSuccess": "上传成功",
+    "message.error.uploadFailed": "上传失败"
+}

@@ -1,0 +1,10 @@
+{
+    "commands.file-uploader.upload": "Upload Files",
+    "configuration.title": "Upload Files",
+    "configuration.properties.apiEndpoint": "The url for receiving http request",
+    "configuration.properties.httpHeaders": "Add custom http headers(useful for authorization)",
+    "configuration.properties.fileField": "File field name specified in multipart/form-data object(default `file`)",
+    "configuration.properties.options.shouldCompressSingleFile": "Should compress single file(default `false`)",
+    "configuration.properties.options.compressMode": "Compress multiple files with zip or tar before uploading",
+    "configuration.properties.userDefinedData": "User defined data in multipart/form-data object"
+}

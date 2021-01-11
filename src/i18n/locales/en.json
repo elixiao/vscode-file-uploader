@@ -1,0 +1,7 @@
+{
+    "message.warning.openProject": "Please open any project",
+    "message.warning.setApiEndpoint": "Please set api endpoint before uploading",
+    "message.warning.selectFiles": "Please select files",
+    "message.info.uploadSuccess": "Upload Success",
+    "message.error.uploadFailed": "Upload Failed"
+}
