@@ -23,10 +23,11 @@ export async function createArchive(
   for (let i = 0; i < resources.length; i++) {
     const resource = resources[i];
     const stat = fs.statSync(resource);
+    const basename = path.basename(resource);
     if (stat.isDirectory()) {
-      archive.directory(resource, false);
+      archive.directory(resource, basename);
     } else {
-      archive.file(resource, { name: path.basename(resource) });
+      archive.file(resource, { name: basename });
     }
   }
   archive.finalize();

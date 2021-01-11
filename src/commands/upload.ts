@@ -55,7 +55,7 @@ export async function upload(context: ExtensionContext, items: Uri[]) {
       );
     }
 
-    await sendFormData(filePath, wsConfig);
+    await sendFormData(filePath, resources, wsConfig);
     window.showInformationMessage(t("message.info.uploadSuccess"));
   } catch (e) {
     console.log(e);

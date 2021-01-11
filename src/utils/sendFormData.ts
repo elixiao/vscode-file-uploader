@@ -6,15 +6,18 @@ import logger from "../utils/logger";
 
 export async function sendFormData(
   filePath: string,
+  resources: string[],
   wsConfig: WorkspaceConfiguration
 ) {
   const { apiEndpoint, httpHeaders, fileField, userDefinedData } = wsConfig;
   const form = new FormData();
   form.append(fileField, fs.createReadStream(filePath));
+  form.append("manifest", JSON.stringify(resources));
   form.append("data", JSON.stringify(userDefinedData));
   const wsFolders = workspace.workspaceFolders;
   if (wsFolders && wsFolders.length) {
-    form.append("workspace", wsFolders[0].name);
+    const { uri, name } = wsFolders[0];
+    form.append("workspace", JSON.stringify({ path: uri.path, name }));
   }
   const axiosRequestConfig = {
     headers: { ...httpHeaders, ...form.getHeaders() },
