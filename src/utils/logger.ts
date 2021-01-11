@@ -11,8 +11,11 @@ class Logger implements ILogger {
   }
 
   public info(message: string) {
-    console.log(message);
     this.channel.appendLine(message);
+  }
+
+  public show() {
+    this.channel.show();
   }
 }
 

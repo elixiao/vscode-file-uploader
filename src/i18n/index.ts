@@ -9,6 +9,6 @@ const locale: any = {
 
 export function t(key: string) {
   const lang = env.language;
-  const json = locale[lang];
+  const json = locale[lang] || locale["en"];
   return json ? json[key] : "";
 }
