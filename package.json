@@ -2,7 +2,7 @@
 	"name": "file-uploader",
 	"displayName": "File Uploader",
 	"description": "upload files to remote http endpoint",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"publisher": "keliq",
 	"engines": {
 		"vscode": "^1.52.0"

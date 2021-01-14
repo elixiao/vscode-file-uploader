@@ -8,8 +8,11 @@ import { IUploadOptions } from "../types";
 import { createArchive } from "../utils/createArchive";
 import { sendFormData } from "../utils/sendFormData";
 import { t } from "../i18n/index";
+import logger from "../utils/logger";
+import { getCurrentTime } from "../utils/getCurrentTime";
 
 export async function upload(context: ExtensionContext, items: Uri[]) {
+  let axiosRes;
   try {
     if (!context.storageUri) {
       window.showWarningMessage(t("message.warning.openProject"));
@@ -54,13 +57,22 @@ export async function upload(context: ExtensionContext, items: Uri[]) {
         uploadOptions.compressMode
       );
     }
-
-    await sendFormData(filePath, resources, wsConfig);
-    window.showInformationMessage(t("message.info.uploadSuccess"));
+    axiosRes = await sendFormData(filePath, resources, wsConfig);
+    const successMsg = t("message.info.uploadSuccess");
+    logger.info(`[${getCurrentTime()}] ` + successMsg);
+    window.showInformationMessage(successMsg);
   } catch (e) {
-    console.log(e);
-    let hint = "";
-    if (e.message) hint = ": " + e.message;
-    window.showErrorMessage(t("message.error.uploadFailed") + hint);
+    const { message = "", response } = e;
+    axiosRes = response;
+    const errorMsg =
+      t("message.error.uploadFailed") + (message ? ": " + message : "");
+    logger.info(`[${getCurrentTime()}] ` + errorMsg);
+    window.showErrorMessage(errorMsg);
+  } finally {
+    if (axiosRes) {
+      const { status, statusText, data } = axiosRes;
+      logger.info(JSON.stringify({ status, statusText, data }, null, 2));
+      logger.show();
+    }
   }
 }

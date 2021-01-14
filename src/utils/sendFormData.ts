@@ -2,7 +2,6 @@ import { workspace, WorkspaceConfiguration } from "vscode";
 import * as fs from "fs-extra";
 import axios from "axios";
 import * as FormData from "form-data";
-import logger from "../utils/logger";
 
 export async function sendFormData(
   filePath: string,
@@ -23,10 +22,5 @@ export async function sendFormData(
     headers: { ...httpHeaders, ...form.getHeaders() },
     timeout: 5000,
   };
-  const res = await axios.post(apiEndpoint, form, axiosRequestConfig);
-  const { status, statusText, data } = res;
-  logger.info(`status: ${status}`);
-  logger.info(`statusText: ${statusText}`);
-  logger.info(`data: ${JSON.stringify(data)}`);
-  logger.show();
+  return axios.post(apiEndpoint, form, axiosRequestConfig);
 }
