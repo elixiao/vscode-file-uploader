@@ -2,7 +2,7 @@
 	"name": "file-uploader",
 	"displayName": "File Uploader",
 	"description": "upload files to remote http endpoint",
-	"version": "0.0.4",
+	"version": "0.0.5",
 	"publisher": "keliq",
 	"engines": {
 		"vscode": "^1.52.0"
@@ -13,6 +13,9 @@
 	"icon": "images/icon.png",
 	"keywords": [
 		"upload",
+		"uploader",
+		"fileUploader",
+		"uploadFile",
 		"file"
 	],
 	"bugs": {
@@ -23,7 +26,8 @@
 		"url": "https://github.com/keliq/vscode-file-uploader.git"
 	},
 	"activationEvents": [
-		"onCommand:file-uploader.upload"
+		"onCommand:file-uploader.upload",
+		"*"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
