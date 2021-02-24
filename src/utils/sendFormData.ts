@@ -6,16 +6,17 @@ import * as FormData from "form-data";
 export async function sendFormData(filePath: string, resources: string[], wsConfig: WorkspaceConfiguration) {
   const { apiEndpoint, httpHeaders, fileField, userDefinedData = {} } = wsConfig;
   const form = new FormData();
+  const data = { ...userDefinedData }
   form.append(fileField, fs.createReadStream(filePath));
-  userDefinedData.__manifest = resources;
+  data.__manifest = resources;
   const wsFolders = workspace.workspaceFolders;
   if (wsFolders && wsFolders.length) {
     const { uri, name } = wsFolders[0];
-    userDefinedData.__workspace = { path: uri.path, name };
+    data.__workspace = { path: uri.path, name };
   }
-  const keys = Object.keys(userDefinedData)
+  const keys = Object.keys(data)
   keys.forEach(key => {
-    const value = userDefinedData[key]
+    const value = data[key]
     if (value === undefined) return
     form.append(key, typeof value === 'object' ? JSON.stringify(value) : value);
   })
