@@ -22,9 +22,7 @@ export async function upload(context: ExtensionContext, items: Uri[], opts: any 
     if (!apiEndpoint) return window.showWarningMessage(t("message.warning.setApiEndpoint"));
 
     const resources = items.map((uri) => uri.path);
-    if (!(resources && resources.length)) {
-      return window.showWarningMessage(t("message.warning.selectFiles"));
-    }
+    if (!(resources && resources.length)) return window.showWarningMessage(t("message.warning.selectFiles"));
 
     const storageFolder = context?.storageUri?.path || "";
     if (storageFolder) fs.ensureDirSync(storageFolder);
@@ -57,11 +55,10 @@ export async function upload(context: ExtensionContext, items: Uri[], opts: any 
     logger.info(`[${getCurrentTime()}] ` + successMsg);
     window.showInformationMessage(successMsg);
   } catch (e) {
-    const { message = "", response } = e;
+    const { message = "", response, stack } = e;
     axiosRes = response;
-    const errorMsg =
-      t("message.error.uploadFailed") + (message ? ": " + message : "");
-    logger.info(`[${getCurrentTime()}] ` + errorMsg);
+    const errorMsg = t("message.error.uploadFailed") + message
+    logger.info(`[${getCurrentTime()}] ` + stack || errorMsg);
     window.showErrorMessage(errorMsg);
   } finally {
     if (axiosRes) {
@@ -72,10 +69,7 @@ export async function upload(context: ExtensionContext, items: Uri[], opts: any 
   }
 }
 
-export async function selectAndUpload(
-  context: ExtensionContext,
-  lines: string[]
-) {
+export async function selectAndUpload(context: ExtensionContext, lines: string[]) {
   const code = [...lines, "return FileUploader"].join("\n");
   try {
     const fn = new Function(code);
@@ -84,7 +78,7 @@ export async function selectAndUpload(
     if (!wsFolders) return window.showErrorMessage(t("message.warning.openProject"));
     const files: Uri[] | undefined = await selectFiles(wsFolders[0].uri.path);
     if (!files) return window.showErrorMessage(t("message.warning.selectFiles"));
-    options.userDefinedData = options.data;
+    options.userDefinedData = options.formData;
     await upload(context, files, options);
   } catch (e) {
     logger.info(e.stack);

@@ -3,7 +3,7 @@
     "message.warning.setApiEndpoint": "Please set api endpoint before uploading",
     "message.warning.selectFiles": "Please select files",
     "message.info.uploadSuccess": "Upload Success",
-    "message.error.uploadFailed": "Upload Failed",
+    "message.error.uploadFailed": "Upload Failed: ",
     "message.error.codeExecutionError": "Code Execution Error: ",
     "codeLens.upload": "Upload Files"
 }
